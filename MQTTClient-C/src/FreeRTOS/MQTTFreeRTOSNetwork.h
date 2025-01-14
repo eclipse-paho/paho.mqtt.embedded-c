@@ -14,10 +14,27 @@
  *    Allan Stockdill-Mander - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
-#if !defined(MQTTFreeRTOS_H)
+#if !defined(MQTTFreeRTOSNetwork_H)
 #define MQTTFreeRTOS_H
 
-#include "FreeRTOSPrimitives.h"
-#include "FreeRTOSNetwork.h"
+#include "FreeRTOS.h"
+#include "FreeRTOS_Sockets.h"
+#include "FreeRTOS_IP.h"
+#include "semphr.h"
+#include "task.h"
+
+typedef struct Network Network;
+
+struct Network
+{
+	xSocket_t my_socket;
+	int (*mqttread) (Network*, unsigned char*, int, int);
+	int (*mqttwrite) (Network*, unsigned char*, int, int);
+	void (*disconnect) (Network*);
+};
+
+void NetworkInit(Network*);
+int NetworkConnect(Network*, char*, int);
+/*int NetworkConnectTLS(Network*, char*, int, SlSockSecureFiles_t*, unsigned char, unsigned int, char);*/
 
 #endif

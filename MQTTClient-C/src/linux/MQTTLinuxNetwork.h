@@ -14,10 +14,8 @@
  *    Allan Stockdill-Mander - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
-#if !defined(__MQTT_LINUX_)
-#define __MQTT_LINUX_
-
-#include "MQTTLinuxDllexport.h"
+#if !defined(__MQTT_LINUX_NETWORK)
+#define __MQTT_LINUX_NETWORK
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -37,7 +35,15 @@
 #include <string.h>
 #include <signal.h>
 
-#include "MQTTLinuxNetwork.h"
-#include "MQTTLinuxPrimitives.h"
+typedef struct Network
+{
+	int my_socket;
+	int (*mqttread) (struct Network*, unsigned char*, int, int);
+	int (*mqttwrite) (struct Network*, unsigned char*, int, int);
+} Network;
+
+DLLExport void NetworkInit(Network*);
+DLLExport int NetworkConnect(Network*, char*, int);
+DLLExport void NetworkDisconnect(Network*);
 
 #endif
