@@ -56,7 +56,7 @@ int32_t MQTTDeserialize_publish(unsigned char* dup, unsigned char* qos, unsigned
 	unsigned char* curdata = buf;
 	unsigned char* enddata = NULL;
 	int32_t rc = 0;
-	int mylen = 0;
+	int32_t mylen = 0;
 
 	FUNC_ENTRY;
 	header.byte = readChar(&curdata);

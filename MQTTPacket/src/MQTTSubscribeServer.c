@@ -127,7 +127,7 @@ int32_t MQTTSerialize_suback(unsigned char* buf, int32_t buflen, unsigned short 
 int32_t MQTTV5Serialize_suback(unsigned char* buf, int32_t buflen, unsigned short packetid,
 	  MQTTProperties* properties, int count, unsigned char* reasonCodes)
 #else
-int32_t MQTTSerialize_suback(unsigned char* buf, int buflen, unsigned short packetid, int count, unsigned char* grantedQoSs)
+int32_t MQTTSerialize_suback(unsigned char* buf, int32_t buflen, unsigned short packetid, int count, unsigned char* grantedQoSs)
 #endif
 {
 	MQTTHeader header = {0};
