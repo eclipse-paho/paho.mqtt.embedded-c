@@ -14,6 +14,33 @@
 #     Ian Craggs - initial version
 #*******************************************************************************/
 
+if(ESP_PLATFORM)
+
+idf_component_register(
+    INCLUDE_DIRS
+        "MQTTClient-C/src/idf"
+        "MQTTClient-C/src"
+        "MQTTPacket/src"
+    SRCS
+        "MQTTClient-C/src/FreeRTOS/MQTTFreeRTOSPrimitives.c"
+        "MQTTClient-C/src/linux/MQTTLinuxNetwork.c"
+        "MQTTClient-C/src/MQTTClient.c"
+        "MQTTPacket/src/MQTTConnectClient.c"
+        "MQTTPacket/src/MQTTConnectServer.c"
+        "MQTTPacket/src/MQTTDeserializePublish.c"
+        "MQTTPacket/src/MQTTSerializePublish.c"
+        "MQTTPacket/src/MQTTFormat.c"
+        "MQTTPacket/src/MQTTPacket.c"
+        "MQTTPacket/src/MQTTSubscribeClient.c"
+        "MQTTPacket/src/MQTTSubscribeServer.c"
+        "MQTTPacket/src/MQTTUnsubscribeClient.c"
+        "MQTTPacket/src/MQTTUnsubscribeServer.c"
+    REQUIRES
+        freertos
+)
+
+else()
+
 cmake_minimum_required(VERSION 2.8)
 project (embedded-mqtt)
 set(CMAKE_BUILD_TYPE Debug)
@@ -44,3 +71,5 @@ enable_testing()
 ADD_SUBDIRECTORY(MQTTPacket)
 ADD_SUBDIRECTORY(MQTTClient)
 ADD_SUBDIRECTORY(MQTTClient-C)
+
+endif()

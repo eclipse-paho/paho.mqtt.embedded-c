@@ -43,6 +43,8 @@
 #define xstr(s) str(s)
 #define str(s) #s
 #include xstr(MQTTCLIENT_PLATFORM_HEADER)
+#elif defined(ESP_PLATFORM)
+#include "MQTTidf.h"
 #endif
 
 #define MAX_PACKET_ID 65535 /* according to the MQTT specification - do not change! */
