@@ -139,13 +139,13 @@ typedef union
 		MQTTPacket_willOptions_initializer, {NULL, {0, NULL}}, {NULL, {0, NULL}} }
 
 DLLExport int MQTTSerialize_connect(unsigned char* buf, int32_t buflen, MQTTPacket_connectData* options);
-DLLExport int MQTTDeserialize_connect(MQTTPacket_connectData* data, unsigned char* buf, int32_t len);
+DLLExport int32_t MQTTDeserialize_connect(MQTTPacket_connectData* data, unsigned char* buf, int32_t len);
 
-DLLExport int MQTTSerialize_connack(unsigned char* buf, int32_t buflen, unsigned char connack_rc, unsigned char sessionPresent);
+DLLExport int32_t MQTTSerialize_connack(unsigned char* buf, int32_t buflen, unsigned char connack_rc, unsigned char sessionPresent);
 DLLExport int MQTTDeserialize_connack(unsigned char* sessionPresent, unsigned char* connack_rc, unsigned char* buf, int32_t buflen);
 
 DLLExport int MQTTSerialize_disconnect(unsigned char* buf, int32_t buflen);
-DLLExport int MQTTDeserialize_disconnect(unsigned char* buf, int32_t buflen);
+DLLExport int32_t MQTTDeserialize_disconnect(unsigned char* buf, int32_t buflen);
 DLLExport int MQTTSerialize_pingreq(unsigned char* buf, int32_t buflen);
 
 #endif /* MQTTCONNECT_H_ */
