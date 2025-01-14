@@ -43,6 +43,8 @@
 #define xstr(s) str(s)
 #define str(s) #s
 #include xstr(MQTTCLIENT_PLATFORM_HEADER)
+#elif defined(ESP_PLATFORM)
+#include "MQTTidf.h"
 #endif
 
 #define MAX_PACKET_ID 65535 /* according to the MQTT specification - do not change! */
@@ -74,11 +76,13 @@ typedef struct Network
 
 /* The Timer structure must be defined in the platform specific header,
  * and have the following functions to operate on it.  */
-extern void TimerInit(Timer*);
-extern char TimerIsExpired(Timer*);
-extern void TimerCountdownMS(Timer*, unsigned int);
-extern void TimerCountdown(Timer*, unsigned int);
-extern int TimerLeftMS(Timer*);
+struct Timer;
+
+extern void TimerInit(struct Timer*);
+extern char TimerIsExpired(struct Timer*);
+extern void TimerCountdownMS(struct Timer*, unsigned int);
+extern void TimerCountdown(struct Timer*, unsigned int);
+extern int TimerLeftMS(struct Timer*);
 
 typedef struct MQTTMessage
 {

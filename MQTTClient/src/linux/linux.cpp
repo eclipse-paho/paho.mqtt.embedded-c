@@ -39,7 +39,9 @@ class IPStack
 public:
   IPStack()
   {
+#if !defined(LWIP_SOCKET)
 		signal(SIGPIPE, SIG_IGN);
+#endif
   }
 
   int connect(const char* hostname, int port)

@@ -17,7 +17,42 @@
 #if !defined(MQTTFreeRTOS_H)
 #define MQTTFreeRTOS_H
 
-#include "FreeRTOSPrimitives.h"
-#include "FreeRTOSNetwork.h"
+#if defined(ESP_PLATFORM)
+#include <freertos/FreeRTOS.h>
+#include <freertos/semphr.h>
+#include <freertos/task.h>
+#else
+#include "FreeRTOS.h"
+#include "semphr.h"
+#include "task.h"
+#endif
+
+typedef struct Timer 
+{
+	TickType_t xTicksToWait;
+	TimeOut_t xTimeOut;
+} Timer;
+
+void TimerInit(Timer*);
+char TimerIsExpired(Timer*);
+void TimerCountdownMS(Timer*, unsigned int);
+void TimerCountdown(Timer*, unsigned int);
+int TimerLeftMS(Timer*);
+
+typedef struct Mutex
+{
+	SemaphoreHandle_t sem;
+} Mutex;
+
+void MutexInit(Mutex*);
+int MutexLock(Mutex*);
+int MutexUnlock(Mutex*);
+
+typedef struct Thread
+{
+	TaskHandle_t task;
+} Thread;
+
+int ThreadStart(Thread*, void (*fn)(void*), void* arg);
 
 #endif

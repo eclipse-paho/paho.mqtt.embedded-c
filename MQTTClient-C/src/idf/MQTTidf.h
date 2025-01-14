@@ -11,13 +11,13 @@
  *   http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
- *    Allan Stockdill-Mander - initial API and implementation and/or initial documentation
+ *    Denis Benato - support for esp-idf: the esp32 platform
  *******************************************************************************/
 
-#if !defined(MQTTFreeRTOS_H)
-#define MQTTFreeRTOS_H
+#if !defined(MQTTidf_H)
+#define MQTTidf_H
 
-#include "FreeRTOSPrimitives.h"
-#include "FreeRTOSNetwork.h"
+#include "../FreeRTOS/MQTTFreeRTOSPrimitives.h"
+#include "../linux/MQTTLinuxNetwork.h"
 
 #endif
