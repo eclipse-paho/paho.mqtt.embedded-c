@@ -66,7 +66,9 @@ static int linux_write(Network* n, unsigned char* buffer, int len, int timeout_m
 
 void NetworkInit(Network* n)
 {
+#if !defined(LWIP_SOCKET)
 	signal(SIGPIPE, SIG_IGN);
+#endif
 	n->my_socket = 0;
 	n->mqttread = linux_read;
 	n->mqttwrite = linux_write;
