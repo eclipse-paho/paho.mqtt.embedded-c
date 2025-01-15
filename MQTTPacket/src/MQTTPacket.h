@@ -110,7 +110,7 @@ DLLExport int32_t MQTTPacket_encode(unsigned char* buf, int32_t length);
 int32_t MQTTPacket_decode(int (*getcharfn)(unsigned char*, int), int32_t* value);
 int32_t MQTTPacket_decodeBuf(unsigned char* buf, int32_t* value);
 
-int readInt(unsigned char** pptr);
+int32_t readInt(unsigned char** pptr);
 char readChar(unsigned char** pptr);
 void writeChar(unsigned char** pptr, char c);
 void writeInt(unsigned char** pptr, int anInt);

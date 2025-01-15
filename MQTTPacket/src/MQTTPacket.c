@@ -296,7 +296,7 @@ int MQTTPacket_read(unsigned char* buf, int32_t buflen, int (*getfn)(unsigned ch
 	int rc = -1;
 	MQTTHeader header = {0};
 	int32_t len = 0;
-	int rem_len = 0;
+	int32_t rem_len = 0;
 
 	/* 1. read the header byte.  This has the packet type in it */
 	if ((*getfn)(buf, 1) != 1)
