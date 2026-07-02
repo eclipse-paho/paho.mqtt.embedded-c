@@ -1,16 +1,45 @@
 # Security Policy
 
-This project follows the [Eclipse Vulnerability Reporting Policy](https://www.eclipse.org/security/policy.php).
-Vulnerabilities are tracked by the Eclipse security team, in cooperation with the project lead.
-Fixing vulnerabilities is taken care of by the project committers, with assistance and guidance of the security
-team.
+<!--
+    THIS IS A TEMPLATE THAT YOU MUST MODIFIY FOR USE BY YOUR PROJECT.
+    
+    Adapt this template as required:
+
+    * Remove content that does not make sense for your project
+    * Replace <organization> and <repository> with values for your project
+    * Remove the comments
+
+    For any questions about implementing security best practices, contact the 
+    Eclipse Foundation Security Team at security@eclipse-foundation.org
+-->
+
+This Eclipse Foundation Project adheres to the [Eclipse Foundation Vulnerability Reporting Policy](https://www.eclipse.org/security/policy/).
+
+## How To Report a Vulnerability
+
+If you think you have found a vulnerability in this repository, please report it to us through coordinated disclosure.
+
+**Please do not report security vulnerabilities through public issues, discussions, or change requests.**
+
+Instead, report it by creating a [confidential issue](https://gitlab.eclipse.org/security/vulnerability-reports/-/issues/new?issuable_template=new_vulnerability) in the Eclipse Foundation Vulnerability Reporting Tracker.
+
+You can find more information about reporting and disclosure at the [Eclipse Foundation Security page](https://www.eclipse.org/security/).
+
+Please include as much of the information listed below as you can to help us better understand and resolve the issue:
+
+* The type of issue (e.g., buffer overflow, SQL injection, or cross-site scripting)
+* Affected version(s)
+* Impact of the issue, including how an attacker might exploit the issue
+* Step-by-step instructions to reproduce the issue
+* The location of the affected source code (tag/branch/commit or direct URL)
+* Full paths of source file(s) related to the manifestation of the issue
+* Configuration required to reproduce the issue
+* Log files that are related to this issue (if possible)
+* Proof-of-concept or exploit code (if possible)
+
+This information will help us triage your report more quickly.
 
 ## Supported Versions
 
 Eclipse Paho provides security updates for the most recent version only.
-
-## Reporting a Vulnerability
-
-We recommend that in case of suspected vulnerabilities you do not create a GitHub issue, but instead contact the
-Eclipse Security Team directly sending an email to security@eclipse.org.
 
