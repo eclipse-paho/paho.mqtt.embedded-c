@@ -1,12 +1,12 @@
 #*******************************************************************************
-#  Copyright (c) 2009, 2014 IBM Corp.
+#  Copyright (c) 2009, 2026 IBM Corp., Ian Craggs
 # 
 #  All rights reserved. This program and the accompanying materials
-#  are made available under the terms of the Eclipse Public License v1.0
+#  are made available under the terms of the Eclipse Public License v2.0
 #  and Eclipse Distribution License v1.0 which accompany this distribution. 
 # 
 #  The Eclipse Public License is available at 
-#     http://www.eclipse.org/legal/epl-v10.html
+#     http://www.eclipse.org/legal/epl-v20.html
 #  and the Eclipse Distribution License is available at 
 #    http://www.eclipse.org/org/documents/edl-v10.php.
 # 
@@ -137,7 +137,7 @@ html:
 
 ARDUINO_LIB_FILES = MQTTClient/src/*.h MQTTClient/src/arduino/*.h $(srcdir)/*
 ARDUINO_SAMPLES = MQTTClient/samples/arduino/*
-LEGAL_FILES = edl-v10 epl-v10 notice.html about.html CONTRIBUTING.md README.md library.properties
+LEGAL_FILES = edl-v10 epl-v20 notice.html about.html CONTRIBUTING.md README.md library.properties
 
 arduino: mkdir
 	-mkdir -p ${blddir}/arduino/MQTTClient/examples
