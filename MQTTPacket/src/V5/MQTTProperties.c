@@ -224,6 +224,8 @@ int MQTTProperty_read(MQTTProperty* prop, unsigned char** pptr, unsigned char* e
         break;
       case MQTTPROPERTY_TYPE_VARIABLE_BYTE_INTEGER:
         len = MQTTPacket_decodeBuf(*pptr, &prop->value.integer4);
+        if (len < 0)
+          return -1;
         *pptr += len;
         break;
       case MQTTPROPERTY_TYPE_BINARY_DATA:
@@ -244,20 +246,29 @@ int MQTTProperties_read(MQTTProperties* properties, unsigned char** pptr, unsign
 {
   int rc = 0;
   int remlength = 0;
+  int lenlen = 0;
+  int proplen = 0;
 
   properties->count = 0;
 	if (enddata - (*pptr) > 0) /* enough length to read the VBI? */
   {
-    *pptr += MQTTPacket_decodeBuf(*pptr, &remlength);
+    lenlen = MQTTPacket_decodeBuf(*pptr, &remlength);
+    if (lenlen < 0)
+      goto exit;
+    *pptr += lenlen;
     properties->length = remlength;
     while (properties->count < properties->max_count && remlength > 0)
     {
-      remlength -= MQTTProperty_read(&properties->array[properties->count], pptr, enddata);
+      proplen = MQTTProperty_read(&properties->array[properties->count], pptr, enddata);
+      if (proplen < 0)
+        goto exit;
+      remlength -= proplen;
       properties->count++;
     }
     if (remlength == 0)
       rc = 1; /* data read successfully */
   }
 
+exit:
   return rc;
 }

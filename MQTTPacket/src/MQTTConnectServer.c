@@ -87,13 +87,17 @@ int32_t MQTTDeserialize_connect(MQTTPacket_connectData* data, unsigned char* buf
 	int32_t rc = 0;
 	MQTTString Protocol;
 	int32_t mylen = 0;
+	int lenlen = 0;
 
 	FUNC_ENTRY;
 	header.byte = readChar(&curdata);
 	if (header.bits.type != CONNECT)
 		goto exit;
 
-	curdata += MQTTPacket_decodeBuf(curdata, &mylen); /* read remaining length */
+	if ((lenlen = MQTTPacket_decodeBuf(curdata, &mylen)) < 0) /* read remaining length */
+		goto exit;
+
+	curdata += lenlen; /* move pointer after remaining length field */
 
 	if (!readMQTTLenString(&Protocol, &curdata, enddata) ||
 		enddata - curdata < 0) /* do we have enough data to read the protocol version byte? */
@@ -223,13 +227,17 @@ int32_t MQTTV5Deserialize_zero(unsigned char packettype, MQTTProperties* propert
 	unsigned char* enddata = NULL;
 	int32_t rc = 0;
 	int32_t mylen;
+	int lenlen = 0;
 
 	FUNC_ENTRY;
 	header.byte = readChar(&curdata);
 	if (header.bits.type != packettype)
 		goto exit;
 
-	curdata += (rc = MQTTPacket_decodeBuf(curdata, &mylen)); /* read remaining length */
+	if ((lenlen = MQTTPacket_decodeBuf(curdata, &mylen)) < 0) /* read remaining length */
+		goto exit;
+
+	curdata += lenlen; /* move pointer after remaining length field */
 	enddata = curdata + mylen;
 
 	if (mylen > 0)
