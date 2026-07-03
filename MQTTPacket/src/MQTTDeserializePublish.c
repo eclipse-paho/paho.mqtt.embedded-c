@@ -41,6 +41,7 @@ int MQTTDeserialize_publish(unsigned char* dup, int* qos, unsigned char* retaine
 	unsigned char* enddata = NULL;
 	int rc = 0;
 	int mylen = 0;
+	int lenlen = 0;
 
 	FUNC_ENTRY;
 	header.byte = readChar(&curdata);
@@ -50,7 +51,10 @@ int MQTTDeserialize_publish(unsigned char* dup, int* qos, unsigned char* retaine
 	*qos = header.bits.qos;
 	*retained = header.bits.retain;
 
-	curdata += (rc = MQTTPacket_decodeBuf(curdata, &mylen)); /* read remaining length */
+	if ((lenlen = MQTTPacket_decodeBuf(curdata, &mylen)) < 0) /* read remaining length */
+		goto exit;
+
+	curdata += lenlen; /* move pointer after remaining length field */
 	enddata = curdata + mylen;
 
 	if (!readMQTTLenString(topicName, &curdata, enddata) ||
@@ -86,13 +90,17 @@ int MQTTDeserialize_ack(unsigned char* packettype, unsigned char* dup, unsigned 
 	unsigned char* enddata = NULL;
 	int rc = 0;
 	int mylen;
+	int lenlen = 0;
 
 	FUNC_ENTRY;
 	header.byte = readChar(&curdata);
 	*dup = header.bits.dup;
 	*packettype = header.bits.type;
 
-	curdata += (rc = MQTTPacket_decodeBuf(curdata, &mylen)); /* read remaining length */
+	if ((lenlen = MQTTPacket_decodeBuf(curdata, &mylen)) < 0) /* read remaining length */
+		goto exit;
+
+	curdata += lenlen; /* move pointer after remaining length field */
 	enddata = curdata + mylen;
 
 	if (enddata - curdata < 2)

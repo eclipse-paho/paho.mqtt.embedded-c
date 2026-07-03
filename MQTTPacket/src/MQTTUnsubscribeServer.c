@@ -39,6 +39,7 @@ int MQTTDeserialize_unsubscribe(unsigned char* dup, unsigned short* packetid, in
 	unsigned char* enddata = NULL;
 	int rc = 0;
 	int mylen = 0;
+	int lenlen = 0;
 
 	FUNC_ENTRY;
 	header.byte = readChar(&curdata);
@@ -46,7 +47,10 @@ int MQTTDeserialize_unsubscribe(unsigned char* dup, unsigned short* packetid, in
 		goto exit;
 	*dup = header.bits.dup;
 
-	curdata += (rc = MQTTPacket_decodeBuf(curdata, &mylen)); /* read remaining length */
+	if ((lenlen = MQTTPacket_decodeBuf(curdata, &mylen)) < 0) /* read remaining length */
+		goto exit;
+
+	curdata += lenlen; /* move pointer after remaining length field */
 	enddata = curdata + mylen;
 
 	*packetid = readInt(&curdata);

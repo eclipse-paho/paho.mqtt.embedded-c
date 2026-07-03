@@ -104,13 +104,17 @@ int MQTTDeserialize_suback(unsigned short* packetid, int maxcount, int* count, i
 	unsigned char* enddata = NULL;
 	int rc = 0;
 	int mylen;
+	int lenlen = 0;
 
 	FUNC_ENTRY;
 	header.byte = readChar(&curdata);
 	if (header.bits.type != SUBACK)
 		goto exit;
 
-	curdata += (rc = MQTTPacket_decodeBuf(curdata, &mylen)); /* read remaining length */
+	if ((lenlen = MQTTPacket_decodeBuf(curdata, &mylen)) < 0) /* read remaining length */
+		goto exit;
+
+	curdata += lenlen; /* move pointer after remaining length field */
 	enddata = curdata + mylen;
 	if (enddata - curdata < 2)
 		goto exit;

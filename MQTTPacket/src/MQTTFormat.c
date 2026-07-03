@@ -121,9 +121,12 @@ char* MQTTFormat_toClientString(char* strbuf, int strbuflen, unsigned char* buf,
 	int rem_length = 0;
 	MQTTHeader header = {0};
 	int strindex = 0;
+	int lenlen = 0;
 
 	header.byte = buf[index++];
-	index += MQTTPacket_decodeBuf(&buf[index], &rem_length);
+	if ((lenlen = MQTTPacket_decodeBuf(&buf[index], &rem_length)) < 0) /* read remaining length */
+		return strbuf;
+	index += lenlen; /* move pointer after remaining length field */
 
 	switch (header.bits.type)
 	{
@@ -191,9 +194,12 @@ char* MQTTFormat_toServerString(char* strbuf, int strbuflen, unsigned char* buf,
 	int rem_length = 0;
 	MQTTHeader header = {0};
 	int strindex = 0;
+	int lenlen = 0;
 
 	header.byte = buf[index++];
-	index += MQTTPacket_decodeBuf(&buf[index], &rem_length);
+	if ((lenlen = MQTTPacket_decodeBuf(&buf[index], &rem_length)) < 0) /* read remaining length */
+		return strbuf;
+	index += lenlen; /* move pointer after remaining length field */
 
 	switch (header.bits.type)
 	{
