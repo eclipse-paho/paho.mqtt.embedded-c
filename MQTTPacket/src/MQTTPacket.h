@@ -123,7 +123,7 @@ typedef struct {
 	char state;
 }MQTTTransport;
 
-int MQTTPacket_readnb(unsigned char* buf, int buflen, MQTTTransport *trp);
+DLLExport int MQTTPacket_readnb(unsigned char* buf, int buflen, MQTTTransport *trp);
 
 #ifdef __cplusplus /* If this is a C++ compiler, use C linkage */
 }
