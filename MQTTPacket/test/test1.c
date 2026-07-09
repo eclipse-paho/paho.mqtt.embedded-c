@@ -561,6 +561,15 @@ int test5(struct Options options)
 	for (i = 0; i < count2; ++i)
 		assert("topics should be the same",
 					checkMQTTStrings(topicStrings[i], topicStrings2[i]), "topics were different %s\n", "");
+    
+    unsigned char dup3 ;
+    unsigned short msgid3 ;
+    int count3 = 0;
+    unsigned char invalid_buf[49] = {173,47,1,0,0,1,0,0,0,0,0,0,12,105,111,116,45,48,52,48,97,48,49,107,112,4,109,113,116,116,6,105,111,116,104,117,98,8,97,108,105,121,117,110,99,115,3,99,111};
+    int invalid_buf_len = sizeof(invalid_buf);
+    MQTTString topicStrings3[1] = {MQTTString_initializer};
+    rc = MQTTDeserialize_unsubscribe(&dup3, &msgid3, 1, &count3, topicStrings3, invalid_buf, invalid_buf_len);
+    assert("bad rc from deserialize unsubscribe invalid packet",rc == 0,"rc was %d\n",rc);
 
 /* exit: */
 	MyLog(LOGA_INFO, "TEST5: test %s. %d tests run, %d failures.",
