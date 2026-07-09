@@ -94,8 +94,15 @@ typedef struct
 } MQTTPacket_willOptions;
 
 
-#define MQTTPacket_willOptions_initializer { {'M', 'Q', 'T', 'W'}, 0, {NULL, {0, NULL}}, {NULL, {0, NULL}}, 0, 0 }
-
+#define MQTTPacket_willOptions_initializer      \
+	{                                           \
+		.struct_id = {'M', 'Q', 'T', 'W'},      \
+		.struct_version = 0,                    \
+		.topicName = MQTTString_initializer,    \
+		.message = MQTTString_initializer,      \
+		.retained = 0,                          \
+		.qos = 0,                               \
+	}
 
 typedef struct
 {
@@ -133,9 +140,19 @@ typedef union
 #endif
 } MQTTConnackFlags;	/**< connack flags byte */
 
-#define MQTTPacket_connectData_initializer { {'M', 'Q', 'T', 'C'}, 0, 4, {NULL, {0, NULL}}, 60, 1, 0, \
-		MQTTPacket_willOptions_initializer, {NULL, {0, NULL}}, {NULL, {0, NULL}} }
-
+#define MQTTPacket_connectData_initializer \
+	{                                               \
+		.struct_id = {'M', 'Q', 'T', 'C'},          \
+		.struct_version = 0,                        \
+		.MQTTVersion = 4,                           \
+		.clientID = MQTTString_initializer,         \
+		.keepAliveInterval = 60,                    \
+		.cleansession = 1,                          \
+		.willFlag = 0,                              \
+		.will = MQTTPacket_willOptions_initializer, \
+		.username = MQTTString_initializer,         \
+		.password = MQTTString_initializer,         \
+	}
 DLLExport int MQTTSerialize_connect(unsigned char* buf, int buflen, MQTTPacket_connectData* options);
 DLLExport int MQTTDeserialize_connect(MQTTPacket_connectData* data, unsigned char* buf, int len);
 

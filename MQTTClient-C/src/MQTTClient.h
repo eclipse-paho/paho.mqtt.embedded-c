@@ -131,7 +131,18 @@ typedef struct MQTTClient
 #endif
 } MQTTClient;
 
-#define DefaultClient {0, 0, 0, 0, NULL, NULL, 0, 0, 0}
+#define DefaultClient               \
+    {                               \
+        .next_packetid = 0,         \
+        .command_timeout_ms = 0,    \
+        .buf_size = 0,              \
+        .readbuf_size = 0,          \
+        .buf = NULL,                \
+        .readbuf = NULL,            \
+        .keepAliveInterval = 0,     \
+        .ping_outstanding = 0,      \
+        .isconnected = 0,           \
+    }
 
 
 /**
