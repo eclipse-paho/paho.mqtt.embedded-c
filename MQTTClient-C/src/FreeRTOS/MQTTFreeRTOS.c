@@ -169,7 +169,7 @@ int NetworkConnect(Network* n, char* addr, int port)
 	if ((retVal = FreeRTOS_connect(n->my_socket, &sAddr, sizeof(sAddr))) < 0)
 	{
 		FreeRTOS_closesocket(n->my_socket);
-	    goto exit;
+		goto exit;
 	}
 
 exit:

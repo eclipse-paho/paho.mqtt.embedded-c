@@ -77,7 +77,7 @@ int linux_read(Network* n, unsigned char* buffer, int len, int timeout_ms)
 		if (rc == -1)
 		{
 			if (errno != EAGAIN && errno != EWOULDBLOCK)
-			  bytes = -1;
+				bytes = -1;
 			break;
 		}
 		else if (rc == 0)

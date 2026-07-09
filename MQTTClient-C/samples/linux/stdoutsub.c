@@ -219,7 +219,7 @@ int main(int argc, char** argv)
 	NetworkInit(&n);
 	NetworkConnect(&n, opts.host, opts.port);
 	MQTTClientInit(&c, &n, 1000, buf, 100, readbuf, 100);
- 
+
 	MQTTPacket_connectData data = MQTTPacket_connectData_initializer;       
 	data.willFlag = 0;
 	data.MQTTVersion = 3;
@@ -230,11 +230,11 @@ int main(int argc, char** argv)
 	data.keepAliveInterval = 10;
 	data.cleansession = 1;
 	printf("Connecting to %s %d\n", opts.host, opts.port);
-	
+
 	rc = MQTTConnect(&c, &data);
 	printf("Connected %d\n", rc);
-    
-    printf("Subscribing to %s\n", topic);
+
+	printf("Subscribing to %s\n", topic);
 	rc = MQTTSubscribe(&c, topic, opts.qos, messageArrived);
 	printf("Subscribed %d\n", rc);
 
@@ -242,7 +242,7 @@ int main(int argc, char** argv)
 	{
 		MQTTYield(&c, 1000);	
 	}
-	
+
 	printf("Stopping\n");
 
 	MQTTDisconnect(&c);

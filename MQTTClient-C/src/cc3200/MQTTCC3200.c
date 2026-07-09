@@ -185,7 +185,7 @@ int ConnectNetwork(Network* n, char* addr, int port)
 	if( retVal < 0 ) {
 		// error
 		sl_Close(n->my_socket);
-	    return retVal;
+		return retVal;
 	}
 
 	SysTickIntRegister(SysTickIntHandler);
